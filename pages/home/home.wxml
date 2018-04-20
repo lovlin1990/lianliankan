@@ -1,14 +1,22 @@
 <!--home.wxml-->
 <image src="../images/bg.jpg" class="bgImg"/>
 <view class="container">
-  <view class="bg">
+  <view class="errorText">
+    <text> 错误次数{{error}}</text>
+  </view>
+  <view class="bg mt50">
     <view class="section">
       <view class="flex-wrp" style="">
         <view wx:for="{{boxList}}">
           <view class="flex-item {{item.checked}}" wx:key="id" data-id="{{item.id}}" data-checked="{{item.checked}}"  data-value="{{item.value}}" bindtap="boxClick"></view>
-          <view class="flex-item-hidden {{item.checked}} " wx:key="id" data-id="{{item.id}}" data-checked="{{item.checked}}"  data-value="{{item.value}}" bindtap="boxClick"><image src="../images/{{item.value}}.jpg" class="hiddenImg"/></view>
+          <view class="flex-item-hidden {{item.checked}} {{item.shake}}" wx:key="id" data-id="{{item.id}}" data-checked="{{item.checked}}"  data-value="{{item.value}}"><image src="../images/{{item.value}}.png" class="hiddenImg"/></view>
         </view>
       </view>
     </view>
+    <view class="mt20">
+      <button bindtap="setBegin" class="btn">重新开始</button>
+    </view>
   </view>
 </view>
+<import src="../alert/alert.wxml"/>
+<template is="item" wx:if="{{alertShow}}" data="{{person: person}}"/>

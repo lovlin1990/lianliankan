@@ -5,8 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    initLength:16,
-    boxList:[]
+    initLength:20,
+    boxList:[],
+    error:0,
+    right:0,
+    person:0,
+    firstDataId:'',
+    firstDataVal: '',
+    startClick:0,
+    alertShow: false
   },
   // 初始化数据
   initData: function () {
@@ -16,16 +23,21 @@ Page({
       dataList.push({
         id: i+1,
         value: intBoxValList[i],
-        checked: ''
+        checked: '',
+        shake:''
       })
     }
     this.setData({
-      boxList: dataList
+      error:0,
+      right: 0,
+      startClick:0,
+      firstDataId: '',
+      firstDataVal: '',
+      boxList: dataList,
+      alertShow: false
     })
-    
-    console.log(this.data.boxList)
   },
-  // 初始化数据
+  // 初始化数据，随机生成1-8的两两相等的数组
   initValData: function () {
     let dataList = []
     let i = this.data.initLength / 2
@@ -36,26 +48,120 @@ Page({
     }
     // 打乱顺序
     dataList.sort(function () { return 0.5 - Math.random() })
-    var str = dataList.join([]);
+    
     // 随机生成8组成对出现的数
-    return str
+    return dataList
   },
   boxClick: function (e) {
-    console.log(1);
     let boxData = e.currentTarget.dataset
+    let firstDataId = this.data.firstDataId
+    let firstDataVal = this.data.firstDataVal
+    if (boxData.checked === 'checked'){
+      return;
+    }
+    //判断转换期间是否完成
+    if (this.data.startClick === 2) {
+      return;
+    }
+    // 修改data数据，加载当前的checked
     this.data.boxList.forEach((v) => {
-      if (v.id === boxData.id){
-        if (v.checked !== 'checked'){
+      if (v.id === boxData.id) {
+        if (v.checked !== 'checked') {
           v.checked = 'checked'
-        } else { 
-          v.checked = ''
         }
-        
       }
     })
     this.setData({
       boxList: this.data.boxList
     })
+    // 判断是否点击过
+    if (firstDataVal === "") {
+      firstDataVal = boxData.value
+      firstDataId = boxData.id
+      //重新赋值
+      this.setData({
+        firstDataVal: firstDataVal,
+        firstDataId: firstDataId,
+        startClick: 1
+      })
+    } else {
+      if (firstDataVal !== boxData.value) {
+        this.data.boxList.forEach((v) => {
+          if (v.id === firstDataId) {
+            v.shake = 'shake'
+          }
+        })
+        this.setData({
+          boxList: this.data.boxList
+        })
+        // 跟上次点击的不一样
+        this.data.boxList.forEach((v) => {
+          if (v.value === boxData.value) {
+            v.checked = ''
+            v.shake = ''
+          }
+          if (v.id === firstDataId) {
+            v.checked = ''
+            v.shake = ''
+          }
+        })
+        this.data.error += 1
+      } else {
+        this.data.right += 1
+      }
+      
+      this.setData({
+        startClick: 2
+      })
+      firstDataVal = ''
+      firstDataId = ''
+      // 判断是否结束
+      this.finishedEvent(this.data.right, this.data.error)
+      // 延迟1.5秒赋值，可以延迟转换
+      setTimeout(() => {
+        //重新赋值
+        this.setData({
+          boxList: this.data.boxList,
+          firstDataVal: firstDataVal,
+          firstDataId: firstDataId,
+          error: this.data.error,
+          right: this.data.right,
+          startClick: 0
+        })
+        
+      }, 1500)
+    }   
+  },
+  // 完成动画之后调用是否结束
+  finishedEvent: function (right, error) {
+    let initLength = this.data.initLength;
+    if (right === initLength/2){
+      let person = 0
+      if (error >= 0 && error < 2){
+        person = 99
+      } else if (error >= 2 && error < 4){
+        person = 90
+      } else if (error >= 4 && error < 6) {
+        person = 85
+      } else if (error >= 6 && error < 8) {
+        person = 75
+      } else if (error >= 8 && error < 10) {
+        person = 70
+      } else {
+        person = 30
+      }
+      setTimeout(() => {
+        this.setData({
+          alertShow: true,
+          person: person
+        })
+      }, 1000)
+      
+    }
+  },
+  // 重新执行init
+  setBegin: function () {
+    this.initData()
   },
   /**
    * 生命周期函数--监听页面加载

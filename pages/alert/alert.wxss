@@ -1,0 +1,47 @@
+/* pages/alert/alert.wxss */
+.boxShadow{
+		position:absolute;
+    top:0;
+		width:100%;
+		height:100vh;
+		background:rgba(0,0,0,.8);
+		display:block;
+		-webkit-animation: fadeIn .5s;
+		animation: fadeIn .5s;
+    z-index: 100;
+	}
+	.box{
+		width:80vw;
+		height:200px;
+		border:1px solid #e1e1e1;
+		background:#fff;
+    margin-top:-100px;
+    border-radius: 10px;
+	}
+  .boxCont{
+    text-align: center;
+    color: #FE5A6F;
+  }
+ 
+  .alertBtn{
+    width: 80%;
+    border: 1px solid #e1e1e1;
+    background: #FE5A6F;
+    color:#fff;
+  }
+	/*第二种写法*/
+	.boxcontiner{
+		display:flex;
+		display:-webkit-flex;
+		align-items:center;
+		justify-content:center;
+		height:100%;
+	}
+	@keyframes fadeIn {
+	  0% { 
+		opacity: 0;
+	  }
+	  100% {
+		opacity: 1;
+	  }
+	}

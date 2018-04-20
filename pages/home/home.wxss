@@ -1,4 +1,5 @@
 /* pages/home/home.wxss */
+@import "../alert/alert.wxss";
 .bg{
   height:100vh;
 }
@@ -25,10 +26,16 @@
   transition: 1s;
 }
 .flex-item{
+  position: relative;
   background: #242424;
+  z-index:2;
+}
+.shake{
+  animation: roll0 0.1s linear 5;
 }
 .flex-item-hidden{
   position: absolute;
+  z-index:0;
   margin-top: -23vw;
   opacity: 0;
   transform: rotateY(180deg);
@@ -46,19 +53,28 @@
   transform: rotateY(180deg);
   opacity: 0;
   transition:transform 1s,opacity 1.5s;
-  z-index:2;
 }
+.btn{
+  border: 1px solid #e1e1e1;
+  background: #242424;
+  color:#fff;
+}
+.errorText{
+  position: absolute;
+  color:#fff;
+}
+.mt10{margin-top: 10px;}
+.mt20{margin-top: 20px;}
+.mt30{margin-top: 30px;}
+.mt50{margin-top: 50px;}
 @keyframes roll180{
 from {transform: rotateY(0deg);opacity: 1;}
 to {transform: rotateY(180deg);opacity: 0;}
 }
 @keyframes roll0{
-from {transform: rotateY(0deg);}
-to {transform: rotateY(180deg);display: none;}
-}
-@keyframes opa
-{
-0%   {opacity: 0.85;}
-50%  {opacity: 0.9;}
-100% {opacity: 1;}
+0% {transform: translateX(0px);}
+25% {transform: translateX(-3px);}
+50% {transform: translateX(0px);}
+75% {transform: translateX(3px);}
+100% {transform: translateX(0px);}
 }

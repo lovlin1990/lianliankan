@@ -1,0 +1,18 @@
+<!--pages/alert/alert.wxml-->
+<template name="item">
+   <div class="boxShadow">
+		<div class="boxcontiner">
+			<div class="box">
+        <view class="boxCont mt30">
+          <text>恭喜您通关</text>
+        </view>
+        <view class="boxCont mt10">
+          <text>打败了{{person}}%的人，再接再砺哦！</text>
+        </view>
+				<view class="mt30">
+          <button bindtap="setBegin" class="alertBtn">新的一局</button>
+        </view>
+			</div>
+		</div>
+	</div>
+</template>
