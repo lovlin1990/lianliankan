@@ -1,5 +1,14 @@
 /* pages/home/home.wxss */
 @import "../alert/alert.wxss";
+.home-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40rpx 0;
+  box-sizing: border-box;
+}
 .bg{
   height:100vh;
 }
@@ -30,9 +39,6 @@
   background: #242424;
   z-index:2;
 }
-.shake{
-  animation: roll0 0.1s linear 5;
-}
 .flex-item-hidden{
   position: absolute;
   z-index:0;
@@ -40,6 +46,17 @@
   opacity: 0;
   transform: rotateY(180deg);
 }
+.high-item{
+  width: 13vw;
+  height: 13vw;
+}
+.flex-item-hidden.high-item{
+  margin-top: -16vw;
+}
+.shake{
+  animation: roll0 0.1s linear 5;
+}
+
 .hiddenImg{
   width:100%;
   height:100%;
@@ -67,6 +84,7 @@
 .mt20{margin-top: 20px;}
 .mt30{margin-top: 30px;}
 .mt50{margin-top: 50px;}
+.mt80{margin-top: 80px;}
 @keyframes roll180{
 from {transform: rotateY(0deg);opacity: 1;}
 to {transform: rotateY(180deg);opacity: 0;}

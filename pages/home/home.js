@@ -16,14 +16,15 @@ Page({
     alertShow: false
   },
   // 初始化数据
-  initData: function () {
+  initData: function (length) {
     let dataList = []
-    let intBoxValList = this.initValData()
-    for (let i = 0; i < this.data.initLength;i++){
+    let intBoxValList = this.initValData(length)
+    for (let i = 0; i < length;i++){
       dataList.push({
         id: i+1,
         value: intBoxValList[i],
         checked: '',
+        senior: length >= 36 ? 'high-item' : '',
         shake:''
       })
     }
@@ -38,9 +39,9 @@ Page({
     })
   },
   // 初始化数据，随机生成1-8的两两相等的数组
-  initValData: function () {
+  initValData: function (length) {
     let dataList = []
-    let i = this.data.initLength / 2
+    let i = length / 2
     while (i > 0){
       dataList.push(i);
       dataList.push(i);
@@ -137,16 +138,16 @@ Page({
     let initLength = this.data.initLength;
     if (right === initLength/2){
       let person = 0
-      if (error >= 0 && error < 2){
+      if (error >= 0 && error < 4){
         person = 99
-      } else if (error >= 2 && error < 4){
+      } else if (error >= 4 && error < 7){
         person = 90
-      } else if (error >= 4 && error < 6) {
+      } else if (error >= 7 && error < 10) {
         person = 85
-      } else if (error >= 6 && error < 8) {
+      } else if (error >= 10 && error < 12) {
         person = 75
-      } else if (error >= 8 && error < 10) {
-        person = 70
+      } else if (error >= 12 && error < 14) {
+        person = 60
       } else {
         person = 30
       }
@@ -161,14 +162,26 @@ Page({
   },
   // 重新执行init
   setBegin: function () {
-    this.initData()
+    this.initData(this.data.initLength)
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.initData()
-    this.initValData()
+    let id = options.id
+    let length = 12;
+    if(id === '1'){
+      length = 12
+    } else if (id === '2'){
+      length = 20
+    } else if (id === '3') {
+      length = 36
+    }
+    this.setData({
+      initLength: length
+    })
+    this.initData(length)
+    this.initValData(length)
   },
 
   /**

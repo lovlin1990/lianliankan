@@ -7,7 +7,7 @@
           <text>恭喜您通关</text>
         </view>
         <view class="boxCont mt10">
-          <text>打败了{{person}}%的人，再接再砺哦！</text>
+          <text>击败了{{person}}%的人，再接再砺哦！</text>
         </view>
 				<view class="mt30">
           <button bindtap="setBegin" class="alertBtn">新的一局</button>

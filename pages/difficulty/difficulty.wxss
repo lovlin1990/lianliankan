@@ -1,0 +1,5 @@
+/* pages/difficulty/difficulty.wxss */
+@import "../home/home.wxss";
+.start-box{
+  width: 60vw;
+}

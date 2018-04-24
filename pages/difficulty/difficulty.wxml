@@ -1,0 +1,9 @@
+<!--pages/difficulty/difficulty.wxml-->
+<image src="../images/bg.jpg" class="bgImg"/>
+<view class="home-container">
+  <view class="mt20 start-box">
+    <button bindtap="startGame" data-id="1" class="btn mt80">简单</button>
+    <button bindtap="startGame" data-id="2" class="btn mt80">中等</button>
+    <button bindtap="startGame" data-id="3" class="btn mt80">高级</button>
+  </view>
+</view>
